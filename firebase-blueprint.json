@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile representation in CineSynapse",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "email"]
+    },
+    "ScriptProject": {
+      "title": "ScriptProject",
+      "description": "User screenplay project saved in cloud",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "format": { "type": "string" },
+        "logline": { "type": "string" },
+        "theme": { "type": "string" },
+        "topic": { "type": "object" },
+        "characters": { "type": "array" },
+        "beats": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User account document"
+    },
+    "/users/{userId}/scripts/{scriptId}": {
+      "schema": "ScriptProject",
+      "description": "User screenplays and fiction manuscripts"
+    }
+  }
+}

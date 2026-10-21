@@ -1,0 +1,6 @@
+{
+  "name": "CineSynapse · AI Sci-Fi Script Studio & Speculative Fiction Radar",
+  "description": "Discover trending breakthrough topics in artificial intelligence and technology frontiers, then develop full multi-act screenplays and speculative fiction manuscripts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

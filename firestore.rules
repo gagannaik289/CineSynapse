@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // User Profile
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+
+      // User's Screenplay Projects
+      match /scripts/{scriptId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(scriptId);
+        allow update: if isOwner(userId) && isValidId(scriptId);
+        allow delete: if isOwner(userId) && isValidId(scriptId);
+      }
+    }
+  }
+}
